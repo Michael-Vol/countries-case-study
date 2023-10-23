@@ -1,5 +1,7 @@
 package com.example.countriescasestudy.Country;
 
+import com.example.countriescasestudy.CountryLanguage.CountryLanguage;
+import com.example.countriescasestudy.CountryStats.CountryStats;
 import com.example.countriescasestudy.Region.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "countries", schema = "nation")
@@ -42,5 +46,11 @@ public class Country {
     @ManyToOne
     @JoinColumn(name = "region_region_id")
     private Region region;
+
+    @OneToMany(mappedBy = "country")
+    private Set<CountryLanguage> countryLanguages = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "country")
+    private Set<CountryStats> countryStats = new LinkedHashSet<>();
 
 }

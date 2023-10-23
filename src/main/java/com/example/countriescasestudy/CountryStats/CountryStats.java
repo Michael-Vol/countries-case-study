@@ -14,13 +14,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CountryStats {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id", updatable = false, nullable = false)
-    private Integer country_id;
-
-    @Column(name = "year", length = 11, nullable = false)
-    private Integer year;
+    @EmbeddedId
+    private CountryStatsId id;
+    //
+    //    @Column(name = "country_id", nullable = false)
+    //    private Integer country_id;
+    //
+    //
+    //    @Column(name = "year", length = 11, nullable = false)
+    //    private Integer year;
 
     @Column(name = "population", length = 11)
     private Integer population;

@@ -1,7 +1,8 @@
 package com.example.countriescasestudy.CountryLanguage;
 
-import com.example.countriescasestudy.Country.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CountryLanguageRepository extends JpaRepository<CountryLanguage, Country> {
+@Repository
+public interface CountryLanguageRepository extends JpaRepository<CountryLanguage, CountryLanguageId> {
 }
