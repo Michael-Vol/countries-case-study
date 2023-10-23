@@ -1,5 +1,6 @@
 package com.example.countriescasestudy.Country;
 
+import com.example.countriescasestudy.Region.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name = "countries")
+@Table(name = "countries", schema = "nation")
 @Data
 @Builder
 @AllArgsConstructor
@@ -37,4 +38,9 @@ public class Country {
 
     @Column(name = "region_id")
     private Integer region_id;
+
+    @ManyToOne
+    @JoinColumn(name = "region_region_id")
+    private Region region;
+
 }

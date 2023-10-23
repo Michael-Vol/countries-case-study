@@ -1,5 +1,6 @@
 package com.example.countriescasestudy.CountryStats;
 
+import com.example.countriescasestudy.Country.Country;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "country_stats")
+@Table(name = "country_stats", schema = "nation")
 @Data
 @Builder
 @AllArgsConstructor
@@ -26,4 +27,10 @@ public class CountryStats {
 
     @Column(name = "gdp", length = 15)
     private Double national_day;
+
+    @MapsId
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "country_id", nullable = false)
+    private Country country;
+
 }

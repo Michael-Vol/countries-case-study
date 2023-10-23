@@ -1,13 +1,18 @@
 package com.example.countriescasestudy.Region;
 
+import com.example.countriescasestudy.Continent.Continent;
+import com.example.countriescasestudy.Country.Country;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "countries")
+@Table(name = "region", schema = "nation")
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,12 +20,16 @@ import lombok.NoArgsConstructor;
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "region_id", updatable = false, nullable = false)
-    private Integer region_id;
+    @Column(name = "region_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name", length = 100)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "continent_id", length = 11)
-    private Integer continent_id;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "continent_id", nullable = false)
+    private Continent continent;
+
+    @OneToMany(mappedBy = "region")
+    private Set<Country> countries = new LinkedHashSet<>();
 }
