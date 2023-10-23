@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Embeddable
 public class CountryStatsId implements Serializable {
     @Column(name = "country_id", nullable = false)
-    private Integer country_id;
+    private Integer countryId;
 
     @Column(name = "year", nullable = false)
     private Integer year;
