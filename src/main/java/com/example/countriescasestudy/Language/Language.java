@@ -1,12 +1,8 @@
 package com.example.countriescasestudy.Language;
 
-import com.example.countriescasestudy.CountryLanguage.CountryLanguage;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -20,8 +16,8 @@ public class Language {
 
     @Column(name = "language", nullable = false, length = 50)
     private String language;
-
-    @OneToMany(mappedBy = "language")
-    private Set<CountryLanguage> countryLanguages = new LinkedHashSet<>();
+    //
+    //    @OneToMany(mappedBy = "language")
+    //    private List<CountryLanguage> countryLanguages = new LinkedList<>();
 
 }

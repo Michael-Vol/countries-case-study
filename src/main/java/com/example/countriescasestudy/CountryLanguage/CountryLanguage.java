@@ -2,6 +2,7 @@ package com.example.countriescasestudy.CountryLanguage;
 
 import com.example.countriescasestudy.Country.Country;
 import com.example.countriescasestudy.Language.Language;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,21 +15,17 @@ public class CountryLanguage {
     @EmbeddedId
     private CountryLanguageId id;
 
-    //    @Column(name = "country_id", nullable = false)
-    //    private Integer countryId;
-    //
-    //    @Column(name = "language_id", nullable = false)
-    //    private Integer languageId;
-    //
     @MapsId("countryId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
+    @JsonBackReference
     private Country country;
 
     @MapsId("languageId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id", nullable = false)
     private Language language;
+
 
     @Column(name = "official", nullable = false)
     private Boolean official = false;

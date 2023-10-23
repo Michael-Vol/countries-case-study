@@ -14,6 +14,6 @@ public class CountryStatsId implements Serializable {
     @Column(name = "country_id", nullable = false)
     private Integer country_id;
 
-    @Column(name = "year", length = 11, nullable = false)
+    @Column(name = "year", nullable = false)
     private Integer year;
 }

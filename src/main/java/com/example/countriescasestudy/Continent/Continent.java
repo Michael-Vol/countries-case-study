@@ -4,15 +4,13 @@ import com.example.countriescasestudy.Region.Region;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "continents", schema = "nation")
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +24,6 @@ public class Continent {
     private String name;
 
     @OneToMany(mappedBy = "continent")
-    private Set<Region> regions = new LinkedHashSet<>();
+    private List<Region> regions = new LinkedList<>();
 
 }

@@ -1,15 +1,15 @@
 package com.example.countriescasestudy.CountryStats;
 
-import com.example.countriescasestudy.Country.Country;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "country_stats", schema = "nation")
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,18 +21,17 @@ public class CountryStats {
     //    private Integer country_id;
     //
     //
-    //    @Column(name = "year", length = 11, nullable = false)
+    //    @Column(name = "year", nullable = false)
     //    private Integer year;
 
-    @Column(name = "population", length = 11)
+    @Column(name = "population")
     private Integer population;
 
-    @Column(name = "gdp", length = 15)
-    private Double national_day;
-
-    @MapsId
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "country_id", nullable = false)
-    private Country country;
-
+    @Column(name = "gdp")
+    private Double nationalDay;
+    //
+    //    @MapsId
+    //    @ManyToOne(fetch = FetchType.EAGER)
+    //    @JoinColumn(name = "country_id", nullable = false)
+    //    private Country country;
 }
