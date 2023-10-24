@@ -1,14 +1,18 @@
 package com.example.countriescasestudy.Region;
 
 import com.example.countriescasestudy.Continent.Continent;
+import com.example.countriescasestudy.Country.Country;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Table(name = "regions", schema = "nation")
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Region {
@@ -24,6 +28,6 @@ public class Region {
     @JoinColumn(name = "continent_id", nullable = false)
     private Continent continent;
 
-    //    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
-    //    private List<Country> countries = new LinkedList<>();
+    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
+    private List<Country> countries = new LinkedList<>();
 }

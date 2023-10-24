@@ -2,9 +2,7 @@ package com.example.countriescasestudy.Continent;
 
 import com.example.countriescasestudy.Region.Region;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "continents", schema = "nation")
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Continent {
