@@ -1,20 +1,19 @@
 package com.example.countriescasestudy.Country;
 
 import com.example.countriescasestudy.Country.dao.CountryCompleteInfo;
+import com.example.countriescasestudy.Country.dao.DateInfo;
 import com.example.countriescasestudy.Country.dto.CountryDto;
 import com.example.countriescasestudy.Country.dto.CountryMapper;
 import com.example.countriescasestudy.Country.dto.GetCountriesResponse;
+import com.example.countriescasestudy.Region.Region;
+import com.example.countriescasestudy.Region.RegionService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/countries")
@@ -23,6 +22,7 @@ import java.util.stream.Collectors;
 public class CountryController {
     private final CountryService countryService;
     private final CountryMapper countryMapper;
+    private final RegionService regionService;
 
     @GetMapping
     public ResponseEntity<GetCountriesResponse> getCountries() {
@@ -42,9 +42,20 @@ public class CountryController {
     @GetMapping("/complete-info")
     public ResponseEntity<List<CountryCompleteInfo>> getAllCountriesCompleteInfo() {
         List<Country> countries = countryService.getAllCountries();
-        List<CountryCompleteInfo> countryCompleteInfoList = countries.stream()
-                .map(country -> countryService.getCountryCompleteInfo(country))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(countryCompleteInfoList, HttpStatus.OK);
+        List<CountryCompleteInfo> results = countryService.getCountryCompleteInfo();
+        return new ResponseEntity<>(results, HttpStatus.OK);
+    }
+
+    @GetMapping("/complete-info/search")
+    public ResponseEntity<List<CountryCompleteInfo>> searchCountriesCompleteInfo(@RequestParam(required = false) String regionName,
+                                                                                 @RequestParam(required = false) Integer dateFrom,
+                                                                                 @RequestParam(required = false) Integer dateTo) {
+        if (regionName == null && dateFrom == null && dateTo == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        DateInfo dateInfo = DateInfo.builder().dateFrom(dateFrom).dateTo(dateTo).build();
+        Region region = regionService.findRegionByName(regionName);
+        List<CountryCompleteInfo> results = countryService.searchCountryStats(region, dateInfo);
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 }

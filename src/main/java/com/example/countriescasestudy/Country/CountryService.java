@@ -1,7 +1,10 @@
 package com.example.countriescasestudy.Country;
 
 import com.example.countriescasestudy.Country.dao.CountryCompleteInfo;
-import com.example.countriescasestudy.Country.dao.CountryStats;
+import com.example.countriescasestudy.Country.dao.DateInfo;
+import com.example.countriescasestudy.CountryStats.CountryStats;
+import com.example.countriescasestudy.CountryStats.CountryStatsService;
+import com.example.countriescasestudy.Region.Region;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 public class CountryService {
     private final CountryRepository countryRepository;
+    private final CountryStatsService countryStatsService;
 
     public Country save(Country country) {
         return countryRepository.save(country);
@@ -33,20 +37,31 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public CountryCompleteInfo getCountryCompleteInfo(Country country) {
-        String countryName = country.getName();
-        String continentName = country.getRegion().getContinent().getName();
-        String regionName = country.getRegion().getName();
-        List<CountryStats> stats = country.getCountryStats().stream().map(countryStats -> CountryStats.builder()
-                .population(countryStats.getPopulation())
-                .gdp(countryStats.getGdp())
-                .year(countryStats.getId().getYear())
-                .build()).collect(Collectors.toList());
+    public List<CountryCompleteInfo> getCountryCompleteInfo() {
+        List<CountryStats> countryStats = countryStatsService.getAllCountryStats();
+        return countryStats
+                .stream()
+                .map(this::countryStatsToCountryCompleteInfoMapper)
+                .collect(Collectors.toList());
+    }
+
+    public List<CountryCompleteInfo> searchCountryStats(Region region, DateInfo dateInfo) {
+        List<CountryStats> countryStats =
+                countryStatsService.searchCountryStats(region, dateInfo);
+        List<CountryCompleteInfo> searchResults = countryStats.stream()
+                .map(this::countryStatsToCountryCompleteInfoMapper)
+                .collect(Collectors.toList());
+        return searchResults;
+    }
+
+    private CountryCompleteInfo countryStatsToCountryCompleteInfoMapper(CountryStats stats) {
         return CountryCompleteInfo.builder()
-                .continentName(continentName)
-                .regionName(regionName)
-                .countryName(countryName)
-                .stats(stats)
+                .population(stats.getPopulation())
+                .gdp(stats.getGdp())
+                .year(stats.getId().getYear())
+                .countryName(stats.getCountry().getName())
+                .regionName(stats.getCountry().getRegion().getName())
+                .continentName(stats.getCountry().getRegion().getContinent().getName())
                 .build();
     }
 

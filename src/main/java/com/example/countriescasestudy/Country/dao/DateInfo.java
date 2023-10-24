@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class CountryStats {
-    Integer year;
-    Integer population;
-    Double gdp;
+public class DateInfo {
+    Integer dateFrom;
+    Integer dateTo;
 }

@@ -1,6 +1,8 @@
 package com.example.countriescasestudy.CountryStats;
 
+import com.example.countriescasestudy.Country.dao.DateInfo;
 import com.example.countriescasestudy.CountryStats.dto.CountryStatsDto;
+import com.example.countriescasestudy.Region.Region;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
@@ -36,5 +38,13 @@ public class CountryStatsService {
                         .build())
                 .collect(Collectors.toList());
         return countryStats;
+    }
+
+    public List<CountryStats> searchCountryStats(Region region, DateInfo dateInfo) {
+        Integer regionId = region != null ? region.getId() : null;
+        Integer dateFrom = dateInfo.getDateFrom() != null ? dateInfo.getDateFrom() : Integer.MIN_VALUE;
+        Integer dateTo = dateInfo.getDateTo() != null ? dateInfo.getDateTo() : Integer.MAX_VALUE;
+
+        return countryStatsRepository.searchCountryStats(regionId, dateFrom, dateTo);
     }
 }

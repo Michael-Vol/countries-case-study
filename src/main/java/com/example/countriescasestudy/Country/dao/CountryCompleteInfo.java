@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -15,5 +13,7 @@ public class CountryCompleteInfo {
     String continentName;
     String regionName;
     String countryName;
-    List<CountryStats> stats;
+    Integer year;
+    Integer population;
+    Double gdp;
 }

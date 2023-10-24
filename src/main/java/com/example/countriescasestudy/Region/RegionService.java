@@ -10,4 +10,13 @@ import org.springframework.stereotype.Service;
 public class RegionService {
     private final RegionRepository regionRepository;
 
+    public Region findRegionById(Integer regionId) {
+        return regionRepository.findById(regionId)
+                .orElseThrow(() -> new IllegalStateException("Region with id " + regionId + " does not exist"));
+    }
+
+    public Region findRegionByName(String regionName) {
+        return regionRepository.findByName(regionName);
+    }
+
 }

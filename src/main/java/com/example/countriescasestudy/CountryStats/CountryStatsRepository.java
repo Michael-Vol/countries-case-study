@@ -19,5 +19,12 @@ public interface CountryStatsRepository extends JpaRepository<CountryStats, Inte
             "country_stats s JOIN countries c" +
             " ON c.country_id = s.country_id GROUP " +
             "BY c.country_id", nativeQuery = true)
-    public List<CountryStatsDto> getAllByMaxGdpPopulationRatio();
+    List<CountryStatsDto> getAllByMaxGdpPopulationRatio();
+
+    @Query(nativeQuery = true, value = "SELECT s.* FROM country_stats s JOIN countries c ON c.country_id = s" +
+            ".country_id" +
+            " " +
+            " WHERE (?1 IS NULL OR c.region_id = ?1)" +
+            " AND s.year BETWEEN ?2 AND ?3")
+    List<CountryStats> searchCountryStats(Integer regionId, Integer dateFrom, Integer dateTo);
 }
