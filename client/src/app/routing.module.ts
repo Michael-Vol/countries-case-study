@@ -5,6 +5,7 @@ import {Task3Component} from "./tasks/task3/task3.component";
 import {BrowserModule} from "@angular/platform-browser";
 import {HomeComponent} from "./home/home.component";
 import {Task1Component} from "./tasks/task1/task1.component";
+import {LangsComponent} from "./tasks/task1/langs/langs.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'tasks/3',
     component: Task3Component
+  },
+  {
+    path: 'tasks/1/langs/:id',
+    component: LangsComponent
   }
 ];
 

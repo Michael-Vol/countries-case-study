@@ -7,12 +7,18 @@ import {RoutingModule} from "./routing.module";
 import {Task1Component} from "./tasks/task1/task1.component";
 import {Task2Component} from "./tasks/task2/task2.component";
 import {Task3Component} from "./tasks/task3/task3.component";
+import {MatTableModule} from "@angular/material/table";
+import {HttpClientModule} from "@angular/common/http";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RoutingModule,
+    MatTableModule,
+    HttpClientModule,
+    MatPaginatorModule,
   ],
   declarations: [
     AppComponent,
