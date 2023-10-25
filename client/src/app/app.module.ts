@@ -10,6 +10,7 @@ import {Task3Component} from "./tasks/task3/task3.component";
 import {MatTableModule} from "@angular/material/table";
 import {HttpClientModule} from "@angular/common/http";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatTableModule,
     HttpClientModule,
     MatPaginatorModule,
+    MatIconModule,
   ],
   declarations: [
     AppComponent,
