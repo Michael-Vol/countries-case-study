@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/countries")
+@CrossOrigin("*")
 @Builder
 @AllArgsConstructor
 public class CountryController {

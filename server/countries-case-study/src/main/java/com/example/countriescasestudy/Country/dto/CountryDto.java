@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class CountryDto {
-    private Integer countryId;
+    private Integer id;
     private String name;
     private String countryCode2;
     private String countryCode3;
